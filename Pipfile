@@ -9,6 +9,7 @@ django-crispy-forms = "*"
 crispy-bootstrap5 = "*"
 gunicorn = "*"
 python-decouple = "*"
+django-heroku = "*"
 
 [dev-packages]
 
