@@ -3,11 +3,28 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-<div class="jumbotron">
-    <h1 class="display-4">Newspaper App</h1>
-    <p class="lead">A Newspaper website built with Django.</p>
-    <p class="lead">
-        <a class="btn btn-primary btn-lg" href="{% url 'article_list' %}">View All Articles</a>
-    </p>
+
+{% if user.is_authenticated %}
+
+<div class="bg-light p-5 rounded-lg m-3">
+    <h1 class="display-4">Micro-blogging Application</h1>
+    <hr class="my-4">
+    <p class="lead">A web-application that allows users to sign up and create posts about whatever they desire.</p>
+    <p class="lead">Other users can then comment on those posts aswell.</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'article_list' %}">View All Articles</a>
 </div>
+
+{% else %}
+
+<div class="bg-light p-5 rounded-lg m-3">
+    <h1 class="display-4">Micro-blogging Application</h1>
+    <hr class="my-4">
+    <p class="lead">A web-application that allows users to sign up and create posts about whatever they desire.</p>
+    <p class="lead">Other users can then comment on those posts aswell.</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'signup' %}">Sign Up</a>
+    <a class="btn btn-success btn-lg" href="{% url 'login' %}">Log in</a>
+</div>
+
+{% endif %}
+
 {% endblock content %}
