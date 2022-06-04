@@ -6,12 +6,18 @@
     {% for article in object_list %}
         <div class="card">
             <div class="card-header">
-                <span class="font-weight-bold">{{ article.title }}</span> &middot;
+                <span class="font-weight-bold"><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a></span> &middot;
                 <span class="text-muted">by {{ article.author }} | {{ article.date }}</span>
             </div>
             <div class="card-body">
                 <p>{{ article.body }}</p>
+
+                {% if request.user == article.author %}
                 <a href="{% url 'article_edit' article.pk %}">Edit</a> | <a href="{% url 'article_delete' article.pk %}">Delete</a>
+                {% else %}
+                <a href="{% url 'new-comment' article.pk %}">Comment</a>
+                {% endif %}
+
             </div>
             <div class="card-footer">
                 {% for comment in article.comments.all %}

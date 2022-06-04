@@ -6,6 +6,21 @@
         <p>by {{ object.author }} | {{ object.date }}</p>
         <p>{{ object.body }}</p>
 </div>
+
+{% if request.user == object.author %}
+
 <p><a href="{% url 'article_edit' article.pk %}">Edit</a> | <a href="{% url 'article_delete' article.pk %}">Delete</a>.</p>
+
+{% endif %}
+
+<h3>Comments:</h3>
+{% for comment in comments %}
+{% if comment.article == object %}
+
+<p>{{ comment.author }}: {{ comment.comment }}</p>
+
+{% endif %}
+{% endfor %}
+
 <p>Back to <a href="{% url 'article_list' %}">All Articles</a>.</p>
 {% endblock content %}
