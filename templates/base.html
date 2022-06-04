@@ -23,16 +23,16 @@ initial-scale=1, shrink-to-fit=no">
           {% if user.is_authenticated %}
 
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav ms-auto me-4">
-              <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
-              <a class="nav-link" href="{% url 'article_list' %}">View All Articles</a>
-              <a class="nav-link" href="{% url 'article_new' %}">Add New Post</a>
+            <div class="navbar-nav ms-auto me-5">
+              <a class="nav-link mx-2" aria-current="page" href="{% url 'home' %}">Home</a>
+              <a class="nav-link mx-2" href="{% url 'article_list' %}">View All Articles</a>
+              <a class="nav-link mx-2" href="{% url 'article_new' %}">Add New Post</a>
               
               <div class="dropdown">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                   {{ user.username }}
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                   <li><a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a></li>
                   <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
                 </ul>
@@ -44,11 +44,11 @@ initial-scale=1, shrink-to-fit=no">
           {% else %}
 
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav ms-auto">
-              <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
-              <a class="nav-link" href="{% url 'signup' %}">Sign up</a>
-              <a class="nav-link" href="{% url 'login' %}">Log in</a>
-              <a class="nav-link" href="{% url 'password_reset' %}">Forgot Password?</a>
+            <div class="navbar-nav ms-auto me-5">
+              <a class="nav-link mx-2" aria-current="page" href="{% url 'home' %}">Home</a>
+              <a class="nav-link mx-2" href="{% url 'signup' %}">Sign up</a>
+              <a class="nav-link mx-2" href="{% url 'login' %}">Log in</a>
+              <a class="nav-link mx-2" href="{% url 'password_reset' %}">Forgot Password?</a>
             </div>
           </div>
 

@@ -4,7 +4,7 @@
 
 {% block content %}
     {% for article in object_list %}
-        <div class="card">
+        <div class="card mt-5">
             <div class="card-header">
                 <span class="font-weight-bold"><a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a></span> &middot;
                 <span class="text-muted">by {{ article.author }} | {{ article.date }}</span>
