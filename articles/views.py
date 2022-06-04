@@ -1,11 +1,13 @@
 from django.db.models import fields
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.urls import reverse_lazy
-from .models import Article
+from .models import Article, Comment
+from users.models import CustomUser
+from .forms import CommentForm
 
 # Create your views here.
 
@@ -14,10 +16,22 @@ class ArticleListView(LoginRequiredMixin, ListView):
     template_name = 'article_list.html'
     login_url = 'login'
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(ArticleListView, self).get_context_data(*args, **kwargs)
+        context["users"] = CustomUser.objects.all()
+        
+        return context
+
 class ArticleDetailView(LoginRequiredMixin, DetailView):
     model = Article
     template_name = 'article_detail.html'
     login_url = 'login'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ArticleDetailView, self).get_context_data(*args, **kwargs)
+        context["comments"] = Comment.objects.all()
+        
+        return context
 
 class ArticleUpdateView(LoginRequiredMixin, UpdateView):
     model = Article
@@ -52,3 +66,23 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+def add_comment(request, pk):
+
+    article = get_object_or_404(Article, pk=pk)
+
+    if request.method =='POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+
+            comment = form.save(commit=False)    
+            comment.author = request.user  
+            comment.article = article
+            comment.save()
+
+            return redirect('article_detail', pk=pk)
+    else:
+        form = CommentForm()
+    template = 'comment_new.html'
+    context = {'form': form}
+    return render(request, template, context)
